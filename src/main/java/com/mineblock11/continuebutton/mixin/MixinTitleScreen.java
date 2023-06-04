@@ -46,7 +46,7 @@ public class MixinTitleScreen extends Screen {
     @Inject(at = @At("HEAD"), method = "initWidgetsNormal(II)V")
     public void drawMenuButton(int y, int spacingY, CallbackInfo info) {
 
-        ButtonWidget.Builder continueButtonBuilder = ButtonWidget.builder(Text.translatable("continuebutton.continueButtonTitle") , button -> {
+        continueButtonWidget = new ButtonWidget(this.width / 2 - 100, y, 98, 20, Text.translatable("continuebutton.continueButtonTitle") , button -> {
             if(ContinueButtonMod.lastLocal) {
                 assert this.client != null;
                 LevelStorage levelStorage = this.client.getLevelStorage();
@@ -89,10 +89,7 @@ public class MixinTitleScreen extends Screen {
                 ConnectScreen.connect(this, this.client, ServerAddress.parse(serverInfo.address), serverInfo);
             }
         });
-        continueButtonBuilder.dimensions(this.width / 2 - 100, y, 98, 20);
-        continueButtonWidget = continueButtonBuilder.build();
         Screens.getButtons(this).add(continueButtonWidget);
-
     }
 
     private void start() {
@@ -113,7 +110,7 @@ public class MixinTitleScreen extends Screen {
     public void init(CallbackInfo info) {
         for (ClickableWidget button : Screens.getButtons(this)) {
             if(button.visible && !button.getMessage().equals(Text.translatable("continuebutton.continueButtonTitle"))) {
-                button.setX(this.width / 2 + 2);
+                button.x = (this.width / 2 + 2);
                 button.setWidth(98);
                 break;
             }
