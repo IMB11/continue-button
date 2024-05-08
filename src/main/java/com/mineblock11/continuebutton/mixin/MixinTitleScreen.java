@@ -75,8 +75,8 @@ public class MixinTitleScreen extends Screen {
                 serverInfo = new ServerInfo(ContinueButtonMod.serverName, ContinueButtonMod.serverAddress, ServerInfo.ServerType.OTHER);
                 serverInfo.label = Text.translatable("multiplayer.status.pinging");
                 try {
-                    serverListPinger.add(serverInfo, () -> {
-                    });
+                    Runnable donothing = () -> {};
+                    serverListPinger.add(serverInfo, donothing, donothing);
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
