@@ -18,9 +18,9 @@ jobs:
       - name: Setup Java
         uses: actions/setup-java@v3
         with:
-          distribution: temurin
+          distribution: corretto
           cache: gradle
-          java-version: 17
+          java-version: 21
       - run: chmod +x gradlew
       - name: Build And Publish To Maven
         run: ./gradlew build
